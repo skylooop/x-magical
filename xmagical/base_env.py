@@ -273,13 +273,22 @@ class BaseEnv(gym.Env, abc.ABC):
 
         self._renderer_func()
 
-        obs = self.renderer.render()
+        obs = self.renderer.render().transpose(1,0,2)
         if mode == "human":
-            from gym.envs.classic_control import rendering
+            #from gym.envs.classic_control import rendering
+            import pygame
+            from pygame import gfxdraw
 
             if self.viewer is None:
-                self.viewer = rendering.SimpleImageViewer()
-            self.viewer.imshow(obs)
+                pygame.init()
+                pygame.display.init()
+                self.viewer = pygame.display.set_mode(
+                    (384, 384)
+                )
+            surf = pygame.surfarray.make_surface(obs)
+            self.viewer.blit(surf, (0,0))
+            pygame.event.pump()
+            pygame.display.flip()
         else:
             return obs
 
