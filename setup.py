@@ -6,7 +6,7 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 DESCRIPTION = "X-MAGICAL is a benchmark suite for cross-embodiment visual imitation."
 CORE_REQUIREMENTS = [
     "absl-py",
-    "gym",
+    "gym==0.23",
     "numpy",
     "pygame",
     "pyglet",
